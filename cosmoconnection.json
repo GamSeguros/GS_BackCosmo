@@ -1,0 +1,5 @@
+az cosmosdb sql role definition create     --account-name corredordb     --resource-group  segurosDev     --body '{    "RoleName": "PasswordlessReadWrite", "Type": "CustomRole",    "AssignableScopes": ["/"],    "Permissions": [{        "DataActions": [ "Microsoft.DocumentDB/databaseAccounts/readMetadata", "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/items/*",            "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/*" ] }]}'
+
+
+
+az cosmosdb sql role assignment create   --account-name corredordb  --resource-group  segurosDev  --scope "/" --principal-id 4558cbb3-6daf-43f9-a90a-e14ab4c411bd  --role-definition-id 224762c9-02bd-4a47-b3e2-5ed5a2c388bd

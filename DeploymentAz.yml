@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gamdevseg
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gam-dev-cosmoapi
+  namespace: gamdevseg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gam-dev-cosmoapi
+  template:
+    metadata:
+      labels:
+        app: gam-dev-cosmoapi
+    spec:
+      containers:
+      - name: gam-dev-cosmoapi
+        image: gamdevimages.azurecr.io/cosmoapi:v1.01
+        command: ["npm", "start"]
+        ports:
+        - containerPort: 3001
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gam-dev-cosmoapi
+  namespace: gamdevseg
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 3001
+    targetPort: 3001
+    nodePort: 30003
+  selector:
+    app: gam-dev-cosmoapi
+
+  
